@@ -1,0 +1,8 @@
+.wrapper {
+  padding: 4rem 10vw;
+  height: 70vh;
+  background-image: url(../assets/featurebg.jpg);
+  background-position: 100% 30%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
