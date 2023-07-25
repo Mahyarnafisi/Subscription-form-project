@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SimpleInputStyle from "./SimpleInputStyle.module.css";
 import ButtonStyle from "../Style/Button.module.css";
 import inputStyle from "../Style/Input.module.css";
@@ -9,9 +9,19 @@ function SimpleInput(props) {
   const [emailInputTouched, setEmailInputTouched] = useState(false);
   const [data, setData] = useState([]);
 
+  //
+  const inputBlurHandler = (e) => {
+    setEmailInputTouched(true);
+  };
+
+  //
+  const inputFocusHandler = (e) => {
+    nameInput.trim().length > 1 && setEmailInputTouched(false);
+  };
   //Input change function
   const onInputChange = (e) => {
     setNameInput(e.target.value);
+    setEmailNameValid(true);
   };
 
   //Submission form function
@@ -46,10 +56,10 @@ function SimpleInput(props) {
       <form className={SimpleInputStyle.form} onSubmit={onSubmitHandler}>
         <div className={SimpleInputStyle.control}>
           <label htmlFor="name" className={labelValidationStyle}>
-            {!emailNameValid ? "Enter your email please!" : "Email Address:"}
+            Email address:
           </label>
 
-          <input type="text" id="name" className={inputValidationStyle} placeholder="Enter your name please" onChange={onInputChange} value={nameInput} />
+          <input type="text" id="name" className={inputValidationStyle} placeholder="Enter your name please" onChange={onInputChange} value={nameInput} onBlur={inputBlurHandler} onFocus={inputFocusHandler} />
         </div>
         <div className={SimpleInputStyle.action}>
           <button className={ButtonStyle["btn-primary"]}>
