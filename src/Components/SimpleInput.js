@@ -5,7 +5,7 @@ import inputStyle from "../Style/Input.module.css";
 function SimpleInput(props) {
   //State Management
   const [nameInput, setNameInput] = useState("");
-  const [emailNameValid, setEmailNameValid] = useState(false);
+  const [emailNameValid, setEmailNameValid] = useState(true);
   const [data, setData] = useState([]);
 
   //Input change function
@@ -31,17 +31,22 @@ function SimpleInput(props) {
     setNameInput("");
   };
 
+  // Dynamic Style
+  const inputValidationStyle = emailNameValid ? inputStyle.input : inputStyle.inputInvalid;
+  const labelValidationStyle = !emailNameValid ? inputStyle.label : inputStyle.labelInvalid;
+  //
+
   return (
     <div className={SimpleInputStyle.wrapper}>
       <h1>You will get Latest News and article regarding our produce.</h1>
 
       <form className={SimpleInputStyle.form} onSubmit={onSubmitHandler}>
         <div className={SimpleInputStyle.control}>
-          <label htmlFor="name" className={`${emailNameValid ? inputStyle.label : inputStyle.labelInvalid}`}>
+          <label htmlFor="name" className={labelValidationStyle}>
             {!emailNameValid ? "Enter your email please!" : "Email Address:"}
           </label>
 
-          <input type="text" id="name" className={`${emailNameValid ? inputStyle.input : inputStyle.inputInvalid}`} placeholder="Enter your name please" onChange={onInputChange} value={nameInput} />
+          <input type="text" id="name" className={inputValidationStyle} placeholder="Enter your name please" onChange={onInputChange} value={nameInput} />
         </div>
         <div className={SimpleInputStyle.action}>
           <button className={ButtonStyle["btn-primary"]}>
