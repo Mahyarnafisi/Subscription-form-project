@@ -3,15 +3,31 @@ import SimpleInputStyle from "./SimpleInputStyle.module.css";
 import ButtonStyle from "../Style/Button.module.css";
 import inputStyle from "../Style/Input.module.css";
 function SimpleInput(props) {
+  //State Management
   const [nameInput, setNameInput] = useState("");
+  const [emailNameValid, setEmailNameValid] = useState(false);
+  const [data, setData] = useState([]);
+
+  //Input change function
   const onInputChange = (e) => {
     setNameInput(e.target.value);
   };
+
   //Submission form function
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(nameInput);
 
+    //Validation condition
+    if (nameInput.trim().length === 0) {
+      setEmailNameValid(false);
+      return;
+    }
+    setEmailNameValid(true);
+    const emailSubscription = {
+      email: nameInput,
+      id: Math.random() * 100,
+    };
+    data.push(emailSubscription);
     setNameInput("");
   };
 
@@ -21,11 +37,11 @@ function SimpleInput(props) {
 
       <form className={SimpleInputStyle.form} onSubmit={onSubmitHandler}>
         <div className={SimpleInputStyle.control}>
-          <label htmlFor="name" className={inputStyle.label}>
-            Enter your name:
+          <label htmlFor="name" className={`${emailNameValid ? inputStyle.label : inputStyle.labelInvalid}`}>
+            {!emailNameValid ? "Enter your email please!" : "Email Address:"}
           </label>
 
-          <input type="text" id="name" className={inputStyle.input} placeholder="Enter your name please" onChange={onInputChange} value={nameInput} />
+          <input type="text" id="name" className={`${emailNameValid ? inputStyle.input : inputStyle.inputInvalid}`} placeholder="Enter your name please" onChange={onInputChange} value={nameInput} />
         </div>
         <div className={SimpleInputStyle.action}>
           <button className={ButtonStyle["btn-primary"]}>
