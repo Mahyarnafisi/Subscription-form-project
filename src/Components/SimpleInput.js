@@ -7,8 +7,16 @@ function SimpleInput(props) {
   const [nameInput, setNameInput] = useState("");
   const [emailNameValid, setEmailNameValid] = useState(false);
   const [emailInputTouched, setEmailInputTouched] = useState(false);
+  const [formIsValid, setFormIsValid] = useState(false);
   const [data, setData] = useState([]);
-
+  // Dynamic Style
+  const inputIsValid = !emailNameValid && emailInputTouched;
+  const inputValidationStyle = !inputIsValid ? inputStyle.input : inputStyle.inputInvalid;
+  const labelValidationStyle = !inputIsValid ? inputStyle.label : inputStyle.labelInvalid;
+  //
+  useEffect(() => {
+    !emailNameValid ? setFormIsValid(false) : setFormIsValid(true);
+  }, [emailNameValid]);
   //
   const inputBlurHandler = (e) => {
     setEmailInputTouched(true);
@@ -43,12 +51,6 @@ function SimpleInput(props) {
     setNameInput("");
   };
 
-  // Dynamic Style
-  const inputIsValid = !emailNameValid && emailInputTouched;
-  const inputValidationStyle = !inputIsValid ? inputStyle.input : inputStyle.inputInvalid;
-  const labelValidationStyle = !inputIsValid ? inputStyle.label : inputStyle.labelInvalid;
-  //
-
   return (
     <div className={SimpleInputStyle.wrapper}>
       <h1>You will get Latest News and article regarding our produce.</h1>
@@ -62,7 +64,7 @@ function SimpleInput(props) {
           <input type="text" id="name" className={inputValidationStyle} placeholder="Enter your name please" onChange={onInputChange} value={nameInput} onBlur={inputBlurHandler} onFocus={inputFocusHandler} />
         </div>
         <div className={SimpleInputStyle.action}>
-          <button className={ButtonStyle["btn-primary"]}>
+          <button disabled={!formIsValid} className={ButtonStyle["btn-primary"]}>
             Subscription Email <i class="bi bi-chevron-right"></i>
           </button>
         </div>

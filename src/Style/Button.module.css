@@ -9,6 +9,9 @@
 .btn-primary:hover {
   filter: contrast(110%);
 }
+.btn-primary:disabled {
+  background-color: gray;
+}
 
 .btn-primary:hover i {
   transform: translateX(6px);
