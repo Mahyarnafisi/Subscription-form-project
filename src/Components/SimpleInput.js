@@ -17,6 +17,7 @@ function SimpleInput(props) {
   useEffect(() => {
     !emailNameValid ? setFormIsValid(false) : setFormIsValid(true);
   }, [emailNameValid]);
+
   //
   const inputBlurHandler = (e) => {
     setEmailInputTouched(true);
