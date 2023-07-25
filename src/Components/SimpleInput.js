@@ -5,7 +5,8 @@ import inputStyle from "../Style/Input.module.css";
 function SimpleInput(props) {
   //State Management
   const [nameInput, setNameInput] = useState("");
-  const [emailNameValid, setEmailNameValid] = useState(true);
+  const [emailNameValid, setEmailNameValid] = useState(false);
+  const [emailInputTouched, setEmailInputTouched] = useState(false);
   const [data, setData] = useState([]);
 
   //Input change function
@@ -16,6 +17,7 @@ function SimpleInput(props) {
   //Submission form function
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    setEmailInputTouched(true);
 
     //Validation condition
     if (nameInput.trim().length === 0) {
@@ -32,8 +34,9 @@ function SimpleInput(props) {
   };
 
   // Dynamic Style
-  const inputValidationStyle = emailNameValid ? inputStyle.input : inputStyle.inputInvalid;
-  const labelValidationStyle = !emailNameValid ? inputStyle.label : inputStyle.labelInvalid;
+  const inputIsValid = !emailNameValid && emailInputTouched;
+  const inputValidationStyle = !inputIsValid ? inputStyle.input : inputStyle.inputInvalid;
+  const labelValidationStyle = !inputIsValid ? inputStyle.label : inputStyle.labelInvalid;
   //
 
   return (
